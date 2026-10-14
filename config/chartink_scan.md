@@ -1,12 +1,12 @@
 # Chartink scan formulas — Hilega Milega, 3 scanners
 
-## Subscription note
+## Subscription
 
-Free tier works for manual 15-min checking — ~5-minute data delay, which is
-inside your own checking cadence. Premium (~₹780/mo) only matters if you
-later want SMS/webhook alerts or sub-5-minute timeframes. Source:
-https://www.strike.money/reviews/chartink (Jan 2026 pricing, verify on
-chartink.com before paying — prices drift).
+Going with Premium (~₹780/mo) for 1-minute updates — reasonable call for
+quick-momentum setups where a 5-minute free-tier delay genuinely costs
+entries. Verify current price on chartink.com before paying, since this
+figure is from a January 2026 review and may drift:
+https://www.strike.money/reviews/chartink
 
 ## Honest limitation (applies to all 3 scanners below)
 
@@ -19,15 +19,11 @@ three-line entry/exit decision still happens in `engine/strategy.py` once a
 symbol is shortlisted. The `rsi(9)` vs `ema(3, rsi(9))` crossover (black vs
 green) IS natively supported and should be accurate.
 
-**Unverified syntax detail:** Chartink's intraday scans use a per-scan
-"minutes" interval dropdown (5/10/15/30/60) rather than period keywords in
-the formula text. Whether `1 day ago` then means "1 bar of the selected
-interval ago" (Chartink's usual convention) or literally 1 calendar day, I
-haven't been able to confirm against a live Chartink session. **Run scanner
-1 once, check that it fires on a real same-candle crossover before trusting
-it** — if `1 day ago` doesn't behave as "1 bar ago" on your account, drop
-that clause and rely on the UI's own "show only fresh crossovers" option if
-it has one.
+**"X ago" syntax (confirmed):** the lookback keyword matches the scan's
+selected timeframe — `1 day ago` on a Daily scan, `5 min ago` on a 5-min
+scan, `15 min ago` on a 15-min scan, etc. Always "1 bar ago" on whatever
+interval the scan is set to, never literally 1 calendar day on an intraday
+scan.
 
 ---
 
@@ -38,14 +34,14 @@ Setup: Scanner → Create Scan → set **Minutes = 15** → Group = **Nifty 500*
 Bullish:
 ```
 ( {cash} ( latest rsi(9) > latest ema(3, rsi(9)) and
-           1 day ago rsi(9) <= 1 day ago ema(3, rsi(9)) and
+           15 min ago rsi(9) <= 15 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close > latest ema(9,close) ) )
 ```
 Bearish:
 ```
 ( {cash} ( latest rsi(9) < latest ema(3, rsi(9)) and
-           1 day ago rsi(9) >= 1 day ago ema(3, rsi(9)) and
+           15 min ago rsi(9) >= 15 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close < latest ema(9,close) ) )
 ```
@@ -69,26 +65,22 @@ Bearish:
            latest volume > latest sma(volume,20) * 1.2 and
            latest close < latest ema(9,close) ) )
 ```
-(Identical formula to #1 — only the Minutes/Daily setting and the Group
-selector differ. Chartink applies the same query text differently depending
-on those two UI controls.)
 
 ## 3. Derivative (F&O) stocks (bot 3 — futures)
 
-Setup: Scanner → Create Scan → **Minutes = 15** (or Daily, matching
-whichever timeframe you want futures signals on) → Group = **F&O Stocks**.
+Setup: Scanner → Create Scan → **Minutes = 15** → Group = **F&O Stocks**.
 
 Bullish:
 ```
 ( {cash} ( latest rsi(9) > latest ema(3, rsi(9)) and
-           1 day ago rsi(9) <= 1 day ago ema(3, rsi(9)) and
+           15 min ago rsi(9) <= 15 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close > latest ema(9,close) ) )
 ```
 Bearish:
 ```
 ( {cash} ( latest rsi(9) < latest ema(3, rsi(9)) and
-           1 day ago rsi(9) >= 1 day ago ema(3, rsi(9)) and
+           15 min ago rsi(9) >= 15 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close < latest ema(9,close) ) )
 ```
