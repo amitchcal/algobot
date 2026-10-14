@@ -29,19 +29,19 @@ scan.
 
 ## 1. Intraday stocks (bots 1 & 2 — Nifty 500)
 
-Setup: Scanner → Create Scan → set **Minutes = 15** → Group = **Nifty 500**.
+Setup: Scanner → Create Scan → set **Minutes = 5** → Group = **Nifty 500**.
 
 Bullish:
 ```
 ( {cash} ( latest rsi(9) > latest ema(3, rsi(9)) and
-           15 min ago rsi(9) <= 15 min ago ema(3, rsi(9)) and
+           5 min ago rsi(9) <= 5 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close > latest ema(9,close) ) )
 ```
 Bearish:
 ```
 ( {cash} ( latest rsi(9) < latest ema(3, rsi(9)) and
-           15 min ago rsi(9) >= 15 min ago ema(3, rsi(9)) and
+           5 min ago rsi(9) >= 5 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close < latest ema(9,close) ) )
 ```
@@ -68,19 +68,19 @@ Bearish:
 
 ## 3. Derivative (F&O) stocks (bot 3 — futures)
 
-Setup: Scanner → Create Scan → **Minutes = 15** → Group = **F&O Stocks**.
+Setup: Scanner → Create Scan → **Minutes = 5** → Group = **F&O Stocks**.
 
 Bullish:
 ```
 ( {cash} ( latest rsi(9) > latest ema(3, rsi(9)) and
-           15 min ago rsi(9) <= 15 min ago ema(3, rsi(9)) and
+           5 min ago rsi(9) <= 5 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close > latest ema(9,close) ) )
 ```
 Bearish:
 ```
 ( {cash} ( latest rsi(9) < latest ema(3, rsi(9)) and
-           15 min ago rsi(9) >= 15 min ago ema(3, rsi(9)) and
+           5 min ago rsi(9) >= 5 min ago ema(3, rsi(9)) and
            latest volume > latest sma(volume,20) * 1.2 and
            latest close < latest ema(9,close) ) )
 ```

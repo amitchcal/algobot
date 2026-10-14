@@ -118,7 +118,7 @@ def process_bot(bot, secrets_cfg):
     if adapter is None:
         return
 
-    interval = "day" if bot["bot_type"] == "carry_forward_swing_stock" else "15minute"
+    interval = "day" if bot["bot_type"] == "carry_forward_swing_stock" else "5minute"
 
     for symbol in bot["watchlist"]:
         try:
