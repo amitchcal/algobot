@@ -56,6 +56,14 @@ with col2:
         min_value=0.0, step=0.1, value=0.0)
     max_daily_loss = st.number_input("Max daily loss (₹) — bot pauses if breached", min_value=0, step=1000, value=5000)
 
+watchlist = []
+if bot_type in ("intraday_stock", "carry_forward_swing_stock"):
+    st.subheader("Watchlist")
+    st.caption("Full universe auto-scan (Nifty 500 / all NSE) isn't wired up yet — "
+               "the live runner only evaluates symbols listed here.")
+    watchlist_str = st.text_input("Tradingsymbols, comma-separated", value="RELIANCE, TCS, HDFCBANK")
+    watchlist = [s.strip().upper() for s in watchlist_str.split(",") if s.strip()]
+
 commodity_symbols = []
 if meta["needs_commodity_select"]:
     st.subheader("Commodity selection")
@@ -99,6 +107,7 @@ if st.button("Create bot", type="primary"):
         "strategy": strategy,
         "capital_deployed": capital_deployed,
         "lot_size": lot_size,
+        "watchlist": watchlist,
         "commodity_symbols": commodity_symbols,
         "expiry_preference": expiry_preference,
         "strike_selection": strike_selection,

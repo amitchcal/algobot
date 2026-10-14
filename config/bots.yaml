@@ -12,6 +12,10 @@ bots:
     strategy: hilega_milega
     capital_deployed: 50000
     lot_size: 1
+    # Manual watchlist — full Nifty 500 auto-scanning isn't wired up yet
+    # (that needs the Chartink/scanner piece). Until then, the live runner
+    # only evaluates symbols listed here.
+    watchlist: [RELIANCE, TCS, HDFCBANK, INFY, ICICIBANK]
     commodity_symbols: []
     expiry_preference: null
     strike_selection: null
@@ -60,6 +64,8 @@ bots:
     strategy: hilega_milega
     capital_deployed: 100000
     lot_size: 1
+    # Manual watchlist — full NSE auto-scanning isn't wired up yet.
+    watchlist: [RELIANCE, TCS, HDFCBANK, INFY, ICICIBANK]
     commodity_symbols: []
     expiry_preference: null
     strike_selection: null

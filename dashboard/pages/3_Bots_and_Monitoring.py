@@ -66,6 +66,12 @@ for bot in bots_cfg["bots"]:
                 "TSL activates after", min_value=0.0, step=0.1,
                 value=float(bot["tsl"]["activate_after"]), key=f"tslact_{bot['id']}")
 
+        if bot["bot_type"] in ("intraday_stock", "carry_forward_swing_stock"):
+            watchlist_str = st.text_input(
+                "Watchlist (comma-separated tradingsymbols — full universe auto-scan not wired up yet)",
+                value=", ".join(bot.get("watchlist", [])), key=f"wl_{bot['id']}")
+            bot["watchlist"] = [s.strip().upper() for s in watchlist_str.split(",") if s.strip()]
+
         if meta["needs_commodity_select"]:
             bot["commodity_symbols"] = st.multiselect(
                 "Commodities", options=[c["symbol"] for c in COMMODITIES],
