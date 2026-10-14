@@ -1,0 +1,100 @@
+# Bot definitions. Edit via the dashboard (recommended) or by hand.
+# Schema matches config/store.py BOT_TYPES. Credentials are NOT stored here
+# — see config/secrets.yaml (gitignored).
+
+bots:
+  - id: intraday_stock_1
+    bot_type: intraday_stock
+    label: "Intraday Stock Bot — Nifty 500"
+    active: false
+    broker: zerodha_kite
+    paper_mode: true
+    strategy: hilega_milega
+    capital_deployed: 50000
+    lot_size: 1
+    commodity_symbols: []
+    expiry_preference: null
+    strike_selection: null
+    tsl: {mode: percent, trail_value: 1.0, activate_after: 0.0}
+    trading_window: {start: "09:20", end: "15:15"}
+    max_daily_loss: 5000
+
+  - id: intraday_option_1
+    bot_type: intraday_option
+    label: "Intraday Option Bot"
+    active: false
+    broker: zerodha_kite
+    paper_mode: true
+    strategy: hilega_milega
+    capital_deployed: 50000
+    lot_size: 1
+    commodity_symbols: []
+    expiry_preference: weekly
+    strike_selection: ATM
+    tsl: {mode: percent, trail_value: 1.0, activate_after: 0.0}
+    trading_window: {start: "09:20", end: "15:15"}
+    max_daily_loss: 5000
+
+  - id: carry_forward_futures_1
+    bot_type: carry_forward_futures
+    label: "Carry Forward Futures Bot"
+    active: false
+    broker: zerodha_kite
+    paper_mode: true
+    strategy: hilega_milega
+    capital_deployed: 100000
+    lot_size: 1
+    commodity_symbols: []
+    expiry_preference: monthly
+    strike_selection: null
+    tsl: {mode: percent, trail_value: 1.5, activate_after: 0.0}
+    trading_window: {start: "09:20", end: "15:15"}
+    max_daily_loss: 10000
+
+  - id: carry_forward_swing_stock_1
+    bot_type: carry_forward_swing_stock
+    label: "Carry Forward Swing Stock Bot — NSE"
+    active: false
+    broker: zerodha_kite
+    paper_mode: true
+    strategy: hilega_milega
+    capital_deployed: 100000
+    lot_size: 1
+    commodity_symbols: []
+    expiry_preference: null
+    strike_selection: null
+    tsl: {mode: percent, trail_value: 2.0, activate_after: 0.0}
+    trading_window: {start: "09:20", end: "15:15"}
+    max_daily_loss: 10000
+
+  - id: carry_forward_commodity_option_1
+    bot_type: carry_forward_commodity_option
+    label: "Carry Forward Commodity Option Bot"
+    active: false
+    broker: zerodha_kite
+    paper_mode: true
+    strategy: hilega_milega
+    capital_deployed: 50000
+    lot_size: 1
+    commodity_symbols: [CRUDEOIL, NATURALGAS]
+    expiry_preference: monthly
+    strike_selection: ATM
+    tsl: {mode: percent, trail_value: 1.5, activate_after: 0.0}
+    trading_window: {start: "16:00", end: "23:30"}
+    max_daily_loss: 5000
+
+  - id: carry_forward_commodity_futures_1
+    bot_type: carry_forward_commodity_futures
+    label: "Carry Forward Commodity Futures Bot"
+    active: false
+    broker: zerodha_kite
+    paper_mode: true
+    strategy: hilega_milega
+    capital_deployed: 100000
+    lot_size: 1
+    commodity_symbols: [SILVERM, GOLDM]
+    expiry_preference: monthly
+    strike_selection: null
+    tsl: {mode: percent, trail_value: 1.5, activate_after: 0.0}
+    trading_window: {start: "16:00", end: "23:30"}
+    max_daily_loss: 10000

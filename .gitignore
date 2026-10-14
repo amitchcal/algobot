@@ -1,0 +1,4 @@
+config/secrets.yaml
+data/*.csv
+__pycache__/
+*.pyc
